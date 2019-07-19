@@ -27,19 +27,25 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if("get".equals(req.getParameter("getUser"))) {
+
             User user = UserDAO.INSTANCE.getMaxAccountValue();
             req.setAttribute("user", user);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/showUsers.jsp");
             dispatcher.forward(req, resp);
+
         } else if("get".equals(req.getParameter("getSummary"))){
+
             if("get".equals(req.getParameter("getSummary")));
             Account account = AccountDAO.INSTANCE.getSummary();
             req.setAttribute("summary", account);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/showSummary.jsp");
             dispatcher.forward(req, resp);
+
         } else{
+
             RequestDispatcher dispatcher = req.getRequestDispatcher("/error.jsp");
             dispatcher.forward(req, resp);
+
         }
     }
 
