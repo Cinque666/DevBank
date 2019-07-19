@@ -35,7 +35,6 @@ public class Controller extends HttpServlet {
 
         } else if("get".equals(req.getParameter("getSummary"))){
 
-            if("get".equals(req.getParameter("getSummary")));
             Account account = AccountDAO.INSTANCE.getSummary();
             req.setAttribute("summary", account);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/showSummary.jsp");
