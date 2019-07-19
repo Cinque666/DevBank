@@ -23,6 +23,8 @@ public class UserDAO implements DAO{
 
     private static final String SELECT_BY_ID = "SELECT * FROM user WHERE id = ?";
 
+    private static final String SELECT_MAX_ACCOUNT = "SELECT name, surName, MAX(account) as account FROM user_and_account_join";
+
     private UserDAO(){}
 
     public void add(Object userObject){
@@ -59,6 +61,7 @@ public class UserDAO implements DAO{
                 String name = rs.getString(2);
                 String surName = rs.getString(3);
                 User user = new User(id, name, surName);
+//                System.out.println(user.toString());
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -85,6 +88,27 @@ public class UserDAO implements DAO{
             user = new User(userId, name, surName);
         } catch (SQLException e) {
             LOGGER.error("SQLException getUserById method, UserDAO class");
+        }
+        return user;
+    }
+
+    public User getMaxAccountValue(){
+        Connection connection = Config.INSTANCE.getConnection();
+        PreparedStatement ps;
+        User user = new User();
+
+        try {
+            ps = connection.prepareStatement(SELECT_MAX_ACCOUNT);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            int account = rs.getInt("account");
+            String name = rs.getString("name");
+            String surName = rs.getString("surName");
+
+            user = new User(name, surName, account);
+        } catch (SQLException e) {
+            LOGGER.error("SQLException selectMaxValue method, UserDAO class");
         }
         return user;
     }

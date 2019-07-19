@@ -4,22 +4,30 @@ public class Account {
 
     private long id;
 
-    private String account;
+    private int account;
 
     private int userId;
 
     public Account() {
     }
 
-    public Account(String account, int userId) {
+    public Account(int account, int userId) {
         this.account = account;
         this.userId = userId;
     }
 
-    public Account(long id, String account, int userId) {
+    public Account(long id, int account, int userId) {
         this.id = id;
         this.account = account;
         this.userId = userId;
+    }
+
+    public void setAccount(int account) {
+        this.account = account;
+    }
+
+    public int getAccount(){
+        return account;
     }
 
     public long getId() {
@@ -28,14 +36,6 @@ public class Account {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
     }
 
     public int getUserId() {

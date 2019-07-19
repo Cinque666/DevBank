@@ -18,6 +18,7 @@ public class AccountDAO implements DAO{
     private static final String SELECT_ALL = "SELECT * FROM account";
 
     private static final String INSERT = "INSERT INTO account(account, userId) VALUE(?, ?)";
+    private static final String TOTAL_ACCOUNT = "SELECT SUM(account) as account FROM account";
 
     public static final AccountDAO INSTANCE = new AccountDAO();
 
@@ -25,7 +26,7 @@ public class AccountDAO implements DAO{
 
     public List<Account> getAll() {
         Account account;
-        List<Account> accounts = new ArrayList<Account>();
+        List<Account> accounts = new ArrayList<>();
         Connection connection = Config.INSTANCE.getConnection();
         PreparedStatement ps;
         ResultSet rs;
@@ -36,7 +37,7 @@ public class AccountDAO implements DAO{
 
             while(rs.next()){
                 long id = rs.getInt(1);
-                String accountRS = rs.getString(2);
+                int accountRS = rs.getInt(2);
                 int userId = rs.getInt(3);
                 account = new Account(id, accountRS, userId);
                 accounts.add(account);
@@ -54,7 +55,7 @@ public class AccountDAO implements DAO{
 
         try {
             ps = connection.prepareStatement(INSERT);
-            ps.setString(1, account.getAccount());
+            ps.setInt(1, account.getAccount());
             ps.setInt(2, account.getUserId());
 
             ps.execute();
@@ -62,5 +63,25 @@ public class AccountDAO implements DAO{
             LOGGER.error("SQLException add method, AccountDAO class");
         }
 
+    }
+
+    public Account getSummary(){
+        Account account = new Account();
+        Connection connection = Config.INSTANCE.getConnection();
+        PreparedStatement ps;
+
+        try {
+            ps = connection.prepareStatement(TOTAL_ACCOUNT);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+
+            int accountValue = rs.getInt("account");
+            account = new Account();
+            account.setAccount(accountValue);
+
+        } catch (SQLException e) {
+            LOGGER.error("SQLException getSummary method, AccountDAO class");
+        }
+        return account;
     }
 }

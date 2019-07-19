@@ -8,6 +8,8 @@ public class User {
 
     private String surName;
 
+    private int account;
+
     public User() {
     }
 
@@ -20,6 +22,20 @@ public class User {
         this.id = id;
         this.name = name;
         this.surName = surName;
+    }
+
+    public User(String name, String surName, int account) {
+        this.name = name;
+        this.surName = surName;
+        this.account = account;
+    }
+
+    public int getAccount() {
+        return account;
+    }
+
+    public void setAccount(int account) {
+        this.account = account;
     }
 
     public long getId() {
