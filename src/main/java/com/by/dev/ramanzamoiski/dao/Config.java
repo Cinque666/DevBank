@@ -19,8 +19,6 @@ public class Config {
 
     private static final String DB_PROPERTY_FILE_FOR_PC_VERSION = "src/main/resources/db.properties";
 
-    private static final String DB_PROPERTY_FILE = "http/WEB-INF/classes/db.properties";
-
     private static final String DB_HOST = "db.host";
 
     private static final String DB_LOGIN = "db.login";
@@ -31,7 +29,7 @@ public class Config {
     }
 
     public Connection getConnection(){
-//        FileInputStream fis;
+//        FileInputStream fis;                                                                  not a web(PC version)
 //        Properties property = new Properties();
         Connection connection = null;
 

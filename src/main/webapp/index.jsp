@@ -5,7 +5,7 @@
 </head>
 <body>
 <form action = "user" method = "get">
-    <fieldset>richest user
+    <fieldset>richest user at that moment
             <input type="submit" name="getUser" value="get">
     </fieldset>
 </form>
